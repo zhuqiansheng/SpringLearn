@@ -11,6 +11,7 @@ public class SpringDemo6 {
         UsersService usersService = (UsersService) applicationContext.getBean("usersService");
         String s = usersService.sayHello("张三");
         System.out.println(s);
-//        usersService.eat();
+        usersService.eat();
+        usersService.save();
     }
 }

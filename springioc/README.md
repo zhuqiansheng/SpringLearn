@@ -76,5 +76,21 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 1. @Componment
 2. @Repository ：用于对DAO实现类进行标注
 3. @Service ：用于对Service实现类进行标注
-4. @Controller ：用于对Controller实现类进行标注
+4. @Controller ：用于对Controller实现类进行标注 
+
+#### Spring的属性注入--注解方式
+-  普通属性:若有setter方法，在方法上方@Value("value");若没有setter方法，在属性定义上方@Value("value")。
+-  对象属性： 
+1. @Autowired 默认按照类型进行注入，required属性，设置一定要找到匹配的Bean
+2. @AutoWired+@Qualifier指定注入Bean 的名称
+3. @Qualifier(name="") 指定Bean名称
+
+#### bean生命周期方法的注解
+- 在初始化方法上注解@PostConstruct，该方法将在对象被创建后执行
+- 在销毁方法上注解@PreDestroy,该方法将在工厂被关闭时执行
+- @Scope注解用于指定Bean作用返回，默认为singleton单例模式，可改为prototype多例模式
+
+#### xml配置和注解配置混合使用
+- 在配置文件中添加标签：```<context:annotation-config/>```
+- 类用xml配置，属性注入用注解配置
 

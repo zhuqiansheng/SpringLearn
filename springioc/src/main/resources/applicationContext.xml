@@ -106,5 +106,7 @@
     <!--开启注解扫描-->
     <context:component-scan base-package="com.njupt.ioc.demo6"/>
 
+    <context:component-scan base-package="com.njupt.ioc.demo7"/>
+
 
 </beans>
