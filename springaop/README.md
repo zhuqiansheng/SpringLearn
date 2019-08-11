@@ -35,6 +35,7 @@
 - ```@ContextConfiguration("classpath:applicationContext.xml")```
 
 #### 在xml中配置代理类的属性设置：
+```class="org.springframework.aop.framework.ProxyFactoryBean"```
 - target：目标类
 - proxyInterfaces：实现的接口;如果有多个接口，用```list <value></value>
   </list>```
@@ -45,4 +46,40 @@
 - interceptorNames：需要织入目标的Advice
 - singleton：返回代理是否为单例
 - optimize：true时，强制使用CGLib
+
+#### 配置带有切入点的切面
+针对某些方法进行增强，使用jdkRegexpMethodPointcut构造正则表达式切点 
+
+需配置
+```    
+<bean id="myAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="patterns" value=".*save.*,.*delete.*"/>
+        <property name="advice" ref="myAroundAdvice"/>
+</bean>
+```
+**这种方式会比较麻烦，下面采用自动代理**
+
+#### 基于Bean名称的自动代理方式  BeanNameAutoProxyCreator
+[配置](src/main/resources/applicationContext3.xml) 为Bean名称以Dao结尾的配置自动代理
+```
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="beanNames" value="*Dao"/>
+        <property name="interceptorNames" value="myBeforeAdvice"/>
+    </bean>
+```
+这种方式是对所有方法产生代理，不能只对某些方法代理
+
+#### 基于切面信息的自动代理
+```
+    <!--配置切面-->
+    <bean id="myAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="pattern" value="com\.imooc\.aop\.demo6\.CustomerDao\.save"/>
+        <property name="advice" ref="myAroundAdvice"/>
+    </bean>
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"></bean>
+```
+
+
+
 

@@ -9,9 +9,8 @@
 
 
     <!--一般的切面是使用通知作为切面的，因为要对目标类的某个方法进行增强就需要配置一个带有切入点的切面-->
-    <bean id="myAdvisor" class="=org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+    <bean id="myAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
         <!--pattern中配置正则表达式：.任意字符  *任意次数 -->
-        <!--<property name="pattern" value=".*save.*"/>-->
         <property name="patterns" value=".*save.*,.*delete.*"/>
         <property name="advice" ref="myAroundAdvice"/>
     </bean>
