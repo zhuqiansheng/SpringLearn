@@ -7,5 +7,18 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--配置目标类-->
+    <bean id="customerDao" class="com.njupt.aspectj.demo2.CustomerDaoImpl"/>
+    <!--配置切面类-->
+    <bean id="myAspectXml" class="com.njupt.aspectj.demo2.MyAspectXml"/>
 
+    <!--aop的相关配置-->
+    <aop:config>
+        <!--配置切入点-->
+        <aop:pointcut id="pointcut1" expression="execution(* com.njupt.aspectj.demo2.CustomerDao.save(..))"></aop:pointcut>
+        <!--配置aop的切面-->
+        <aop:aspect ref="myAspectXml">
+            <aop:before method="before" pointcut-ref="pointcut1"/>
+        </aop:aspect>
+    </aop:config>
 </beans>
