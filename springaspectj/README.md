@@ -100,3 +100,31 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 - 当通知多个切点时，可以使用|| 进行连接 
 
 
+#### XML方式配置AspectJ
+[配置](applicationContext2.xml)
+1. 配置目标类
+2. 配置切面类
+3. aop配置:配置切入点、配置aop切面
+```
+    <!--配置目标类-->
+    <bean id="customerDao" class="com.njupt.aspectj.demo2.CustomerDaoImpl"/>
+    <!--配置切面类-->
+    <bean id="myAspectXml" class="com.njupt.aspectj.demo2.MyAspectXml"/>
+    
+    <!--aop的相关配置-->
+    <aop:config>
+        <!--配置切入点-->
+        <aop:pointcut id="pointcut1" expression="execution(* com.njupt.aspectj.demo2.CustomerDao.save(..))"></aop:pointcut>
+        <!--配置aop的切面-->
+        <aop:aspect ref="myAspectXml">
+            <aop:before method="before" pointcut-ref="pointcut1"/>
+        </aop:aspect>
+    </aop:config>
+```
+
+#### 总结
+注解方式简单,但不易于维护,改动时需要进入源代码
+xml方式麻烦,但配置集中,易于维护
+
+
+
