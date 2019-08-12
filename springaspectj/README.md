@@ -101,7 +101,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
 #### XML方式配置AspectJ
-[配置](applicationContext2.xml)
+[配置](src/main/resources/applicationContext2.xml)
 1. 配置目标类
 2. 配置切面类
 3. aop配置:配置切入点、配置aop切面
