@@ -14,10 +14,11 @@
 
     <!--aop的相关配置-->
     <aop:config>
-        <!--配置切入点-->
+        <!--配置切入点，相当于value的值-->
         <aop:pointcut id="pointcut1" expression="execution(* com.njupt.aspectj.demo2.CustomerDao.save(..))"></aop:pointcut>
-        <!--配置aop的切面-->
+        <!--配置aop的切面,相当于类上方的@Aspect-->
         <aop:aspect ref="myAspectXml">
+            <!--配置切面的信息，相当于@Before(value="...")-->
             <aop:before method="before" pointcut-ref="pointcut1"/>
         </aop:aspect>
     </aop:config>

@@ -4,7 +4,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 
-@Aspect
+@Aspect            //注解这是切面类
 public class MyAspectAnno {
     @Before(value="pointcut1()")
     //    com.njupt.aspectj.demo1包下ProductDao类的所有类型的所有方法

@@ -39,15 +39,15 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 例如：
 `
-- 匹配所有类的public方法 ：execution(public * *(..))
-- 匹配指定包下所有类的所有方法 ：execution(* com.njupt.bao.*(..))
-- executin(* com.njupt.bao..*(..))  ..*表示包，子包下所有类
-- 匹配实现特定接口所有类方法：executionn(* com.njupt.dao.GenericDAO+.*(..))  //GenericDAO是一个接口
-- 匹配所有save开头的方法:execution(*save*(..))
+- 匹配所有类的public方法 ：`execution(public * *(..))`
+- 匹配指定包下所有类的所有方法 ：`execution(* com.njupt.bao.*(..))`
+- `executin(* com.njupt.bao..*(..))`  ..*表示包，子包下所有类
+- 匹配实现特定接口所有类方法：`executionn(* com.njupt.dao.GenericDAO+.*(..))`  //GenericDAO是一个接口
+- 匹配所有save开头的方法:`execution(*save*(..))`
 `
 
 **定义切面类**
-
+[demo](src/main/java/com/njupt/aspectj/demo1/MyAspectAnno.java)
 - 在类上方注解@Aspect
 - 在方法上方注解通知类型，通知类型内写execution函数
 - 在xml中配置这个切面类
@@ -95,7 +95,8 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 **最终通知**   与finally类似
 
 #### 通过@Pointcut为切点命名
-- 在每个通知内定义切点，会造成工作量大，不易维护，对于重复的切 点，可以使用@Pointcut进行定义
+[demo](src/main/java/com/njupt/aspectj/demo1/MyAspectAnno.java)
+- 在每个通知内定义切点，会造成工作量大，不易维护，对于重复的切点，可以使用@Pointcut进行定义
 - 切点方法：private void 无参数方法，方法名为切点名  
 - 当通知多个切点时，可以使用|| 进行连接 
 
