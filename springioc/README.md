@@ -17,6 +17,7 @@ junit
 
 #### spring ioc
 [传统方式和spring方式的对比](src/main/java/com/njupt/ioc/demo1/SpringDemo1.java)
+
 - spring是一个大工厂，可以将所有对象创建和依赖关系维护，交给Spring管理 
 ```
 //使用spring的工厂
