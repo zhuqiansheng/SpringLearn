@@ -2,11 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-<!--配置目标类-->
+    <!--配置目标类-->
     <bean id="customerDao" class="com.njupt.aop.demo4.CustomerDao"></bean>
     <!--配置通知-->
     <bean id="myAroundAdvice" class="com.njupt.aop.demo4.MyAroundAdvice"/>
-
 
     <!--一般的切面是使用通知作为切面的，因为要对目标类的某个方法进行增强就需要配置一个带有切入点的切面-->
     <bean id="myAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
