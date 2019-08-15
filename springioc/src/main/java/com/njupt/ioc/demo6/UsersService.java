@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 public class UsersService {
     @Value("rice")
     private String food;
-    @Autowired
+//    @Autowired
 //    @Qualifier("userDao")
 @Resource(name = "userDao")            //等价于上面两个注解的效果
     private UserDao userDao;
