@@ -54,9 +54,37 @@ Map queryForMap(String sql,Object[] args)
 Map queryForMap(String sql,Object...args)
 //获取多个
 List<Map<String,Object>> queryForList(String sql)
-List<Map<String,Object>> queryForList(String sql,Object[] args)
-List<Map<String,Object>> queryForList(String sql,Object...args)
+...同上
 ```
+- 查询复杂对象（封装为实体对象）
+1. 首先创建一个类，对应于表结构
+2. 实现RowMapper接口(用private)，将表与类映射起来，如果只用到一次可以设计成内部类
+```
+//获取一个
+T queryForObject(String sql,RowMapper<T> mapper)
+T queryForObject(String sql,Object[] args,RowMapper<T> mapper)
+T queryForObject(String sql,RowMapper<T> mapper,Object...)
+//获取多个
+List<T> query()  
+...同上
+```
+
+#### 总结
+- 查询简单数据项需要给出返回值的类型,查询复杂数据项不需要给出返回值类型，因为会进行封装
+- 查询多个，除了封装成实体对象用query，其它都是queryForList
+- 更新操作推荐使用可变参数形式
+
+### JDBC Template持久层 
+[Dao](src/main/java/com/njupt/sc/dao/Impl)
+
+在com.njupt.sc包下
+- 创建包entity：用于存放类的定义
+- 创建包dao ：定义访问关系型数据库系统所需操作的接口
+- 在dao下创建包Impl：用于实现接口
+
+### 优缺点分析
+- 优点：相对于jdbc简单，灵活
+- 缺点：SQL语句与Java代码掺杂，功能不丰富，没有很好的解决ORM(对象和关系的映射)
 
 
    

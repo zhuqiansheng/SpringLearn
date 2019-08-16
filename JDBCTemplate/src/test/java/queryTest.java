@@ -1,8 +1,12 @@
+import com.njupt.sc.entity.Student;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +63,39 @@ public class queryTest {
         //用list接收，每个元素是一个Map<String, Object>
         List<Map<String, Object>> stus = jdbcTemplate.queryForList(sql);
         System.out.println(stus);
+    }
+
+    @Test
+    /**
+     * 查找一个学生并封装成对象
+     */
+    public void testQueryEntity1(){
+        String sql = "select * from student where id=?";
+        Student student = jdbcTemplate.queryForObject(sql, new StudentRowMapper(), 4);
+        System.out.println(student);
+
+    }
+
+    @Test
+    /**
+     * 查找多个学生封装成对象放在list中
+     */
+    public void testQueryEntity2() {
+        String sql = "select * from student";
+        List<Student> stus = jdbcTemplate.query(sql, new StudentRowMapper());
+        System.out.println(stus);
+    }
+
+
+    private class StudentRowMapper implements RowMapper<Student> {
+        public Student mapRow(ResultSet rs,int i) throws SQLException {
+            Student stu = new Student();
+            stu.setId(rs.getInt("id"));
+            stu.setName(rs.getString("name"));
+            stu.setSex(rs.getString("sex"));
+            stu.setBorn(rs.getDate("born"));
+            return stu;
+        }
     }
 
 
