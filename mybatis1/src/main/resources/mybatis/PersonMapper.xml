@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.njupt.mybatis.dao.PersonMapper" >
+    <resultMap id="BaseResultMap" type="com.njupt.mybatis.bean.Person" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="VARCHAR" />
+        <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <!--单参数,id=方法名-->
+    <!--根据id删除person数据-->
+    <delete id="deletePerson" parameterType="int">
+        delete from person where id=#{id}
+    </delete>
+
+    <!--多参数-->
+    <!--根据性别和姓名查找person-->
+    <select id="getPersonByNameAndGender1" resultType="Person">
+#         select * from person where username=#{param1} and gender=#{param2}
+        select * from person where username=#{arg0} and gender=#{arg1}
+    </select>
+
+    <!--多参数处理-封装pojo类-->
+    <!--调用时传入Person对象-->
+    <select id="getPersonByNameAndGender2" resultType="Person">
+        select * from person where username=#{username} and gender=#{gender}
+    </select>
+
+    <!--多参数处理-map,用于没有相应bean的情况-->
+    <!--调用时传入map，#{key}-->
+    <select id="getPersonByNameAndGender3" resultType="Person">
+        select * from person where username=#{name} and gender=#{gender}
+    </select>
+
+    <!--param方式-->
+    <!--#{param}-->
+    <select id="getPersonByNameAndGender4" resultType="Person">
+        select * from person where username=#{username} and gender=#{gender}
+    </select>
+
+    <!--集合类-->
+    <select id="getPersonByCollection1" resultType="Person">
+        select * from person where id=#{collection[0]}
+#         select * from person where id=#{list[0]}
+    </select>
+
+    
+    <!--数组作为参数-->
+    <select id="getPersonByCollection2" resultType="Person">
+        select * from person where id=#{array[0]}
+    </select>
+
+    <!--返回集合-->
+    <select id="getPersonsByIds" resultType="Person">
+        select * from person where id in
+        <foreach collection="array" item="id" index="i" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+
+
+
+</mapper>
