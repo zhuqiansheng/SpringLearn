@@ -60,6 +60,19 @@
         </foreach>
     </select>
 
+    <!--批量添加-->
+    <insert id="addPersons">
+        insert into person(username, email, gender) values
+        <foreach collection="persons" item="person" separator=",">
+            (#{person.username},#{person.email},#{person.gender})
+        </foreach>
+    </insert>
+
+    <!--ExecutorType批量添加-->
+    <insert id="addPerson" parameterType="Person">
+        insert into person(username, email, gender) values(#{username},#{email},#{gender})
+    </insert>
+
 
 
 

@@ -1,6 +1,7 @@
 import com.njupt.mybatis.bean.Person;
 import com.njupt.mybatis.dao.PersonMapper;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -9,10 +10,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class parameterTest {
 
@@ -104,5 +102,37 @@ public class parameterTest {
 
         List<Person> personLIst = personMapper.getPersonsByIds(new int[]{1, 2, 3, 4, 5});
         System.out.println(personLIst);
+    }
+
+    @Test
+    /**
+     * mybatis批量添加
+     */
+    public void ProcessMybatisBath(){
+        SqlSession sqlSession = getSqlSessionFactory().openSession();
+        PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+
+        List<Person> personList = new ArrayList<Person>();
+        for (int i = 0; i < 5; i++) {
+            Person person = new Person("tom" + i, "123456", "F");
+            personList.add(person);
+        }
+        personMapper.addPersons(personList);
+
+        //提交事务
+        sqlSession.commit();
+    };
+
+    @Test
+    public void testBatchForExecutor() {
+        //使sqlSession获得批处理的能力
+        SqlSession sqlSession = getSqlSessionFactory().openSession(ExecutorType.BATCH);
+        PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+
+        for (int i = 0; i < 10000; i++) {
+            personMapper.addPerson(new Person("tom" + i, "tom@qq.com", "F"));
+        }
+        sqlSession.commit();
+        sqlSession.close();
     }
 }

@@ -28,6 +28,12 @@ public interface PersonMapper {
     //返回集合
     public List<Person> getPersonsByIds(int[] ids);
 
+    //批量添加 返回被影响的行数  Param里的参数供mapper使用
+    public int addPersons(@Param("persons") List<Person> personList);
+
+    //ExecutorType方式
+    public void addPerson(Person person);
+
 
 
 }
