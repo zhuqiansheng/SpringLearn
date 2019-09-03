@@ -34,6 +34,9 @@ public interface PersonMapper {
     //ExecutorType方式
     public void addPerson(Person person);
 
+    //查找所有
+    public List<Person> findAllPersons();
+
 
 
 }

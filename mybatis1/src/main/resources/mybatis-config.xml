@@ -20,6 +20,16 @@
         <package name="com.njupt.mybatis.bean"/>
     </typeAliases>
 
+    <!--插件配置-->
+    <plugins>
+        <plugin interceptor="com.njupt.mybatis.interceptpor.MyFirstInteceptor">
+            <property name="hello" value="world"/>
+        </plugin>
+
+        <!--pageHelper-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
+    </plugins>
+
     <environments default="dev_mysql">
         <environment id="dev_mysql">
             <transactionManager type="JDBC"></transactionManager>

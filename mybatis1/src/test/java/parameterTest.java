@@ -135,4 +135,19 @@ public class parameterTest {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Test
+    /**
+     * pageHelper
+     */
+    public void testPageHelper(){
+        SqlSession sqlSession = getSqlSessionFactory().openSession();
+        PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+
+        List<Person> personList = personMapper.findAllPersons();
+
+        for (Person person : personList) {
+            System.out.println(person.getId());
+        }
+    }
 }

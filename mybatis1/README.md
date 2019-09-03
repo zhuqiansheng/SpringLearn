@@ -105,6 +105,50 @@ insert tb(var1,var2...)  values(v1,v2...);
     }
 ```
 
+#### 拦截器
+编写一个拦截器
+[MyFirstInteceptor](src/main/java/com/njupt/mybatis/interceptpor/MyFirstInteceptor.java)
+
+在mybatis-config.xml中添加插件配置
+```
+    <plugins>
+        <plugin interceptor="com.njupt.mybatis.interceptpor.MyFirstInteceptor">
+            <property name="hello" value="world"/>
+        </plugin>
+    </plugins>
+```
+则在调用一个返回结果集合的方法时就会对他进行拦截，做一些增强操作
+```
+插件配置的初始化参数{hello=world}
+将要包装的目标对象 org.apache.ibatis.executor.CachingExecutor@5ce81285
+将要包装的目标对象 org.apache.ibatis.scripting.defaults.DefaultParameterHandler@51cdd8a
+将要包装的目标对象 org.apache.ibatis.executor.resultset.DefaultResultSetHandler@4e7dc304
+将要包装的目标对象 org.apache.ibatis.executor.statement.RoutingStatementHandler@10bbd20a
+拦截的目标对象  org.apache.ibatis.executor.resultset.DefaultResultSetHandler@4e7dc304
+[]
+```
+
+**开发过程**
+1. 确定拦截的签名：@Intercepts({@Signature(),@Signature(),...}  )
+2. 实现拦截方法：intercept
+3. 配置和运行  :在mybatis的xml配置文件中
+
+**多插件开发过程**
+1. 创建代理对象时，按照插件配置的顺序进行包装
+2. 执行目标方法时，是按照代理的逆向进行执行
+> 为一个对象创建多个代理，相当于一层一层进行包装，而当执行时，是由外而内，一层一层的执行
+
+#### 使用拦截器PageHelper进行分页
+**分页的分类**
+1. 内存分页：(缺)内存开销大，(优)减少与db的交互
+2. 物理分页：相反
+> mysql中实现分页用limit
+
+**pageHelper帮助文档**
+
+[pageHelper](https://github.com/pagehelper/Mybatis-PageHelper)
+
+
 
 
 

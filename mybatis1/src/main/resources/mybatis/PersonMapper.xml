@@ -73,6 +73,10 @@
         insert into person(username, email, gender) values(#{username},#{email},#{gender})
     </insert>
 
+    <select id="findAllPersons" resultType="Person">
+        select * from person
+    </select>
+
 
 
 
