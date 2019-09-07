@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.school.mapper.CommonCncInfoMapper">
+  <resultMap id="BaseResultMap" type="com.project.school.pojo.CommonCncInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="stroke_code_26" jdbcType="VARCHAR" property="strokeCode26" />
+    <result column="stroke_code_5" jdbcType="VARCHAR" property="strokeCode5" />
+    <result column="cnc_struct_code" jdbcType="VARCHAR" property="cncStructCode" />
+    <result column="ecc_struct_code" jdbcType="INTEGER" property="eccStructCode" />
+    <result column="pinyin" jdbcType="VARCHAR" property="pinyin" />
+    <result column="initials" jdbcType="VARCHAR" property="initials" />
+    <result column="finals" jdbcType="VARCHAR" property="finals" />
+    <result column="is_polyphone" jdbcType="INTEGER" property="isPolyphone" />
+    <result column="radical" jdbcType="VARCHAR" property="radical" />
+    <result column="split_component1" jdbcType="VARCHAR" property="splitComponent1" />
+    <result column="split_component2" jdbcType="VARCHAR" property="splitComponent2" />
+    <result column="split_component3" jdbcType="VARCHAR" property="splitComponent3" />
+    <result column="split_component4" jdbcType="VARCHAR" property="splitComponent4" />
+    <result column="split_component5" jdbcType="VARCHAR" property="splitComponent5" />
+    <result column="split_component6" jdbcType="VARCHAR" property="splitComponent6" />
+    <result column="split_component7" jdbcType="VARCHAR" property="splitComponent7" />
+    <result column="split_component8" jdbcType="VARCHAR" property="splitComponent8" />
+    <result column="split_component9" jdbcType="VARCHAR" property="splitComponent9" />
+    <result column="split_component10" jdbcType="VARCHAR" property="splitComponent10" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, level, stroke_code_26, stroke_code_5, cnc_struct_code, ecc_struct_code, 
+    pinyin, initials, finals, is_polyphone, radical, split_component1, split_component2, 
+    split_component3, split_component4, split_component5, split_component6, split_component7, 
+    split_component8, split_component9, split_component10
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from common_cnc_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_cnc_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.project.school.pojo.CommonCncInfo">
+    insert into common_cnc_info (id, name, level, 
+      stroke_code_26, stroke_code_5, cnc_struct_code, 
+      ecc_struct_code, pinyin, initials, 
+      finals, is_polyphone, radical, 
+      split_component1, split_component2, split_component3, 
+      split_component4, split_component5, split_component6, 
+      split_component7, split_component8, split_component9, 
+      split_component10)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
+      #{strokeCode26,jdbcType=VARCHAR}, #{strokeCode5,jdbcType=VARCHAR}, #{cncStructCode,jdbcType=VARCHAR}, 
+      #{eccStructCode,jdbcType=INTEGER}, #{pinyin,jdbcType=VARCHAR}, #{initials,jdbcType=VARCHAR}, 
+      #{finals,jdbcType=VARCHAR}, #{isPolyphone,jdbcType=INTEGER}, #{radical,jdbcType=VARCHAR}, 
+      #{splitComponent1,jdbcType=VARCHAR}, #{splitComponent2,jdbcType=VARCHAR}, #{splitComponent3,jdbcType=VARCHAR}, 
+      #{splitComponent4,jdbcType=VARCHAR}, #{splitComponent5,jdbcType=VARCHAR}, #{splitComponent6,jdbcType=VARCHAR}, 
+      #{splitComponent7,jdbcType=VARCHAR}, #{splitComponent8,jdbcType=VARCHAR}, #{splitComponent9,jdbcType=VARCHAR}, 
+      #{splitComponent10,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.school.pojo.CommonCncInfo">
+    insert into common_cnc_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="strokeCode26 != null">
+        stroke_code_26,
+      </if>
+      <if test="strokeCode5 != null">
+        stroke_code_5,
+      </if>
+      <if test="cncStructCode != null">
+        cnc_struct_code,
+      </if>
+      <if test="eccStructCode != null">
+        ecc_struct_code,
+      </if>
+      <if test="pinyin != null">
+        pinyin,
+      </if>
+      <if test="initials != null">
+        initials,
+      </if>
+      <if test="finals != null">
+        finals,
+      </if>
+      <if test="isPolyphone != null">
+        is_polyphone,
+      </if>
+      <if test="radical != null">
+        radical,
+      </if>
+      <if test="splitComponent1 != null">
+        split_component1,
+      </if>
+      <if test="splitComponent2 != null">
+        split_component2,
+      </if>
+      <if test="splitComponent3 != null">
+        split_component3,
+      </if>
+      <if test="splitComponent4 != null">
+        split_component4,
+      </if>
+      <if test="splitComponent5 != null">
+        split_component5,
+      </if>
+      <if test="splitComponent6 != null">
+        split_component6,
+      </if>
+      <if test="splitComponent7 != null">
+        split_component7,
+      </if>
+      <if test="splitComponent8 != null">
+        split_component8,
+      </if>
+      <if test="splitComponent9 != null">
+        split_component9,
+      </if>
+      <if test="splitComponent10 != null">
+        split_component10,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="strokeCode26 != null">
+        #{strokeCode26,jdbcType=VARCHAR},
+      </if>
+      <if test="strokeCode5 != null">
+        #{strokeCode5,jdbcType=VARCHAR},
+      </if>
+      <if test="cncStructCode != null">
+        #{cncStructCode,jdbcType=VARCHAR},
+      </if>
+      <if test="eccStructCode != null">
+        #{eccStructCode,jdbcType=INTEGER},
+      </if>
+      <if test="pinyin != null">
+        #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="initials != null">
+        #{initials,jdbcType=VARCHAR},
+      </if>
+      <if test="finals != null">
+        #{finals,jdbcType=VARCHAR},
+      </if>
+      <if test="isPolyphone != null">
+        #{isPolyphone,jdbcType=INTEGER},
+      </if>
+      <if test="radical != null">
+        #{radical,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent1 != null">
+        #{splitComponent1,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent2 != null">
+        #{splitComponent2,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent3 != null">
+        #{splitComponent3,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent4 != null">
+        #{splitComponent4,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent5 != null">
+        #{splitComponent5,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent6 != null">
+        #{splitComponent6,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent7 != null">
+        #{splitComponent7,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent8 != null">
+        #{splitComponent8,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent9 != null">
+        #{splitComponent9,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent10 != null">
+        #{splitComponent10,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.school.pojo.CommonCncInfo">
+    update common_cnc_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="strokeCode26 != null">
+        stroke_code_26 = #{strokeCode26,jdbcType=VARCHAR},
+      </if>
+      <if test="strokeCode5 != null">
+        stroke_code_5 = #{strokeCode5,jdbcType=VARCHAR},
+      </if>
+      <if test="cncStructCode != null">
+        cnc_struct_code = #{cncStructCode,jdbcType=VARCHAR},
+      </if>
+      <if test="eccStructCode != null">
+        ecc_struct_code = #{eccStructCode,jdbcType=INTEGER},
+      </if>
+      <if test="pinyin != null">
+        pinyin = #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="initials != null">
+        initials = #{initials,jdbcType=VARCHAR},
+      </if>
+      <if test="finals != null">
+        finals = #{finals,jdbcType=VARCHAR},
+      </if>
+      <if test="isPolyphone != null">
+        is_polyphone = #{isPolyphone,jdbcType=INTEGER},
+      </if>
+      <if test="radical != null">
+        radical = #{radical,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent1 != null">
+        split_component1 = #{splitComponent1,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent2 != null">
+        split_component2 = #{splitComponent2,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent3 != null">
+        split_component3 = #{splitComponent3,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent4 != null">
+        split_component4 = #{splitComponent4,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent5 != null">
+        split_component5 = #{splitComponent5,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent6 != null">
+        split_component6 = #{splitComponent6,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent7 != null">
+        split_component7 = #{splitComponent7,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent8 != null">
+        split_component8 = #{splitComponent8,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent9 != null">
+        split_component9 = #{splitComponent9,jdbcType=VARCHAR},
+      </if>
+      <if test="splitComponent10 != null">
+        split_component10 = #{splitComponent10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.school.pojo.CommonCncInfo">
+    update common_cnc_info
+    set name = #{name,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      stroke_code_26 = #{strokeCode26,jdbcType=VARCHAR},
+      stroke_code_5 = #{strokeCode5,jdbcType=VARCHAR},
+      cnc_struct_code = #{cncStructCode,jdbcType=VARCHAR},
+      ecc_struct_code = #{eccStructCode,jdbcType=INTEGER},
+      pinyin = #{pinyin,jdbcType=VARCHAR},
+      initials = #{initials,jdbcType=VARCHAR},
+      finals = #{finals,jdbcType=VARCHAR},
+      is_polyphone = #{isPolyphone,jdbcType=INTEGER},
+      radical = #{radical,jdbcType=VARCHAR},
+      split_component1 = #{splitComponent1,jdbcType=VARCHAR},
+      split_component2 = #{splitComponent2,jdbcType=VARCHAR},
+      split_component3 = #{splitComponent3,jdbcType=VARCHAR},
+      split_component4 = #{splitComponent4,jdbcType=VARCHAR},
+      split_component5 = #{splitComponent5,jdbcType=VARCHAR},
+      split_component6 = #{splitComponent6,jdbcType=VARCHAR},
+      split_component7 = #{splitComponent7,jdbcType=VARCHAR},
+      split_component8 = #{splitComponent8,jdbcType=VARCHAR},
+      split_component9 = #{splitComponent9,jdbcType=VARCHAR},
+      split_component10 = #{splitComponent10,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

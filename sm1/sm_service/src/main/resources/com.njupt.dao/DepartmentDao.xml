@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace任意，最好设置为路径-->
+<mapper namespace="com.njupt.dao.DepartmentDao">
+    <resultMap id="resultMap" type="Department">
+        <!--主键用id属性，其他用result，property对应实体类，column对应数据率列名-->
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="address" column="address"></result>
+    </resultMap>
+
+    <insert id="insert" parameterType="Department" useGeneratedKeys="true">
+        insert into department(name,address) values (#{name},#{address})
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        delete from department where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Department">
+        update department set name=#{name},address=#{address} where id=#{id}
+    </update>
+
+    <select id="selectById" resultType="Department" parameterType="Integer">
+        select * from department where id=#{id}
+    </select>
+
+    <select id="selectAll" resultType="Department">
+        select * from department
+    </select>
+</mapper>

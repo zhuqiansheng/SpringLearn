@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.school.mapper.StrokeMapper">
+  <resultMap id="BaseResultMap" type="com.project.school.pojo.Stroke">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="basic26_img" jdbcType="VARCHAR" property="basic26Img" />
+    <result column="simple5_img" jdbcType="VARCHAR" property="simple5Img" />
+    <result column="basic26_name" jdbcType="VARCHAR" property="basic26Name" />
+    <result column="basic26_code" jdbcType="VARCHAR" property="basic26Code" />
+    <result column="simple5_name" jdbcType="VARCHAR" property="simple5Name" />
+    <result column="simple5_code" jdbcType="VARCHAR" property="simple5Code" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, basic26_img, simple5_img, basic26_name, basic26_code, simple5_name, simple5_code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stroke
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from stroke
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.project.school.pojo.Stroke">
+    insert into stroke (id, basic26_img, simple5_img, 
+      basic26_name, basic26_code, simple5_name, 
+      simple5_code)
+    values (#{id,jdbcType=INTEGER}, #{basic26Img,jdbcType=VARCHAR}, #{simple5Img,jdbcType=VARCHAR}, 
+      #{basic26Name,jdbcType=VARCHAR}, #{basic26Code,jdbcType=VARCHAR}, #{simple5Name,jdbcType=VARCHAR}, 
+      #{simple5Code,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.school.pojo.Stroke">
+    insert into stroke
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="basic26Img != null">
+        basic26_img,
+      </if>
+      <if test="simple5Img != null">
+        simple5_img,
+      </if>
+      <if test="basic26Name != null">
+        basic26_name,
+      </if>
+      <if test="basic26Code != null">
+        basic26_code,
+      </if>
+      <if test="simple5Name != null">
+        simple5_name,
+      </if>
+      <if test="simple5Code != null">
+        simple5_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="basic26Img != null">
+        #{basic26Img,jdbcType=VARCHAR},
+      </if>
+      <if test="simple5Img != null">
+        #{simple5Img,jdbcType=VARCHAR},
+      </if>
+      <if test="basic26Name != null">
+        #{basic26Name,jdbcType=VARCHAR},
+      </if>
+      <if test="basic26Code != null">
+        #{basic26Code,jdbcType=VARCHAR},
+      </if>
+      <if test="simple5Name != null">
+        #{simple5Name,jdbcType=VARCHAR},
+      </if>
+      <if test="simple5Code != null">
+        #{simple5Code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.school.pojo.Stroke">
+    update stroke
+    <set>
+      <if test="basic26Img != null">
+        basic26_img = #{basic26Img,jdbcType=VARCHAR},
+      </if>
+      <if test="simple5Img != null">
+        simple5_img = #{simple5Img,jdbcType=VARCHAR},
+      </if>
+      <if test="basic26Name != null">
+        basic26_name = #{basic26Name,jdbcType=VARCHAR},
+      </if>
+      <if test="basic26Code != null">
+        basic26_code = #{basic26Code,jdbcType=VARCHAR},
+      </if>
+      <if test="simple5Name != null">
+        simple5_name = #{simple5Name,jdbcType=VARCHAR},
+      </if>
+      <if test="simple5Code != null">
+        simple5_code = #{simple5Code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.school.pojo.Stroke">
+    update stroke
+    set basic26_img = #{basic26Img,jdbcType=VARCHAR},
+      simple5_img = #{simple5Img,jdbcType=VARCHAR},
+      basic26_name = #{basic26Name,jdbcType=VARCHAR},
+      basic26_code = #{basic26Code,jdbcType=VARCHAR},
+      simple5_name = #{simple5Name,jdbcType=VARCHAR},
+      simple5_code = #{simple5Code,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

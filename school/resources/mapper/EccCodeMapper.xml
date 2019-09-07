@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.school.mapper.EccCodeMapper">
+  <resultMap id="BaseResultMap" type="com.project.school.pojo.EccCode">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="vocal_code" jdbcType="VARCHAR" property="vocalCode" />
+    <result column="shape_code1" jdbcType="VARCHAR" property="shapeCode1" />
+    <result column="shape_code2" jdbcType="VARCHAR" property="shapeCode2" />
+    <result column="shape_code3" jdbcType="VARCHAR" property="shapeCode3" />
+    <result column="standard_code" jdbcType="VARCHAR" property="standardCode" />
+    <result column="fault_tolerance_code1" jdbcType="VARCHAR" property="faultToleranceCode1" />
+    <result column="fault_tolerance_code2" jdbcType="VARCHAR" property="faultToleranceCode2" />
+    <result column="fault_tolerance_code3" jdbcType="VARCHAR" property="faultToleranceCode3" />
+    <result column="short_code1" jdbcType="VARCHAR" property="shortCode1" />
+    <result column="short_code2" jdbcType="VARCHAR" property="shortCode2" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, vocal_code, shape_code1, shape_code2, shape_code3, standard_code, fault_tolerance_code1, 
+    fault_tolerance_code2, fault_tolerance_code3, short_code1, short_code2
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ecc_code
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ecc_code
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.project.school.pojo.EccCode">
+    insert into ecc_code (id, name, vocal_code, 
+      shape_code1, shape_code2, shape_code3, 
+      standard_code, fault_tolerance_code1, fault_tolerance_code2, 
+      fault_tolerance_code3, short_code1, short_code2
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{vocalCode,jdbcType=VARCHAR}, 
+      #{shapeCode1,jdbcType=VARCHAR}, #{shapeCode2,jdbcType=VARCHAR}, #{shapeCode3,jdbcType=VARCHAR}, 
+      #{standardCode,jdbcType=VARCHAR}, #{faultToleranceCode1,jdbcType=VARCHAR}, #{faultToleranceCode2,jdbcType=VARCHAR}, 
+      #{faultToleranceCode3,jdbcType=VARCHAR}, #{shortCode1,jdbcType=VARCHAR}, #{shortCode2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.school.pojo.EccCode">
+    insert into ecc_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="vocalCode != null">
+        vocal_code,
+      </if>
+      <if test="shapeCode1 != null">
+        shape_code1,
+      </if>
+      <if test="shapeCode2 != null">
+        shape_code2,
+      </if>
+      <if test="shapeCode3 != null">
+        shape_code3,
+      </if>
+      <if test="standardCode != null">
+        standard_code,
+      </if>
+      <if test="faultToleranceCode1 != null">
+        fault_tolerance_code1,
+      </if>
+      <if test="faultToleranceCode2 != null">
+        fault_tolerance_code2,
+      </if>
+      <if test="faultToleranceCode3 != null">
+        fault_tolerance_code3,
+      </if>
+      <if test="shortCode1 != null">
+        short_code1,
+      </if>
+      <if test="shortCode2 != null">
+        short_code2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="vocalCode != null">
+        #{vocalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shapeCode1 != null">
+        #{shapeCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="shapeCode2 != null">
+        #{shapeCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="shapeCode3 != null">
+        #{shapeCode3,jdbcType=VARCHAR},
+      </if>
+      <if test="standardCode != null">
+        #{standardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="faultToleranceCode1 != null">
+        #{faultToleranceCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="faultToleranceCode2 != null">
+        #{faultToleranceCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="faultToleranceCode3 != null">
+        #{faultToleranceCode3,jdbcType=VARCHAR},
+      </if>
+      <if test="shortCode1 != null">
+        #{shortCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="shortCode2 != null">
+        #{shortCode2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.school.pojo.EccCode">
+    update ecc_code
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="vocalCode != null">
+        vocal_code = #{vocalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shapeCode1 != null">
+        shape_code1 = #{shapeCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="shapeCode2 != null">
+        shape_code2 = #{shapeCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="shapeCode3 != null">
+        shape_code3 = #{shapeCode3,jdbcType=VARCHAR},
+      </if>
+      <if test="standardCode != null">
+        standard_code = #{standardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="faultToleranceCode1 != null">
+        fault_tolerance_code1 = #{faultToleranceCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="faultToleranceCode2 != null">
+        fault_tolerance_code2 = #{faultToleranceCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="faultToleranceCode3 != null">
+        fault_tolerance_code3 = #{faultToleranceCode3,jdbcType=VARCHAR},
+      </if>
+      <if test="shortCode1 != null">
+        short_code1 = #{shortCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="shortCode2 != null">
+        short_code2 = #{shortCode2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.school.pojo.EccCode">
+    update ecc_code
+    set name = #{name,jdbcType=VARCHAR},
+      vocal_code = #{vocalCode,jdbcType=VARCHAR},
+      shape_code1 = #{shapeCode1,jdbcType=VARCHAR},
+      shape_code2 = #{shapeCode2,jdbcType=VARCHAR},
+      shape_code3 = #{shapeCode3,jdbcType=VARCHAR},
+      standard_code = #{standardCode,jdbcType=VARCHAR},
+      fault_tolerance_code1 = #{faultToleranceCode1,jdbcType=VARCHAR},
+      fault_tolerance_code2 = #{faultToleranceCode2,jdbcType=VARCHAR},
+      fault_tolerance_code3 = #{faultToleranceCode3,jdbcType=VARCHAR},
+      short_code1 = #{shortCode1,jdbcType=VARCHAR},
+      short_code2 = #{shortCode2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.school.mapper.ShapeCodeMapper">
+  <resultMap id="BaseResultMap" type="com.project.school.pojo.ShapeCode">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="root" jdbcType="VARCHAR" property="root" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, root, code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shape_code
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shape_code
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.project.school.pojo.ShapeCode">
+    insert into shape_code (id, root, code
+      )
+    values (#{id,jdbcType=INTEGER}, #{root,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.school.pojo.ShapeCode">
+    insert into shape_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="root != null">
+        root,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="root != null">
+        #{root,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.school.pojo.ShapeCode">
+    update shape_code
+    <set>
+      <if test="root != null">
+        root = #{root,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.school.pojo.ShapeCode">
+    update shape_code
+    set root = #{root,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
