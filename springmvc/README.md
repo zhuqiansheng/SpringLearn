@@ -29,12 +29,12 @@
 
 ** 步骤** 
 
-1. maven导入spring\-webmvc
+1. maven导入spring-webmvc
 
- 2\. web.xml中配置DispatcherServlet 
+2. web.xml中配置DispatcherServlet 
 
-```xml
-```xml
+
+```
 <servlet>
   <servlet-name>springmvc</servlet-name>
   <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -47,10 +47,10 @@
   <servlet-name>springmvc</servlet-name>
   <url-pattern>/</url-pattern>
 </servlet-mapping>
-<!--然后需要编写springmvc.xml-->``````
-3\. 编写Handler
+<!--然后需要编写springmvc.xml-->
+```
+3. 编写Handler
 
-```java
 ```
 public class MyHandler implements Controller {
     public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
@@ -59,10 +59,10 @@ public class MyHandler implements Controller {
         modelAndView.setViewName("show");
         return modelAndView;
     }
-}``````
-4\. 在resources下编写配置文件springmvc.xml   \(SpringMVC基础配置\) 
+}
+```
+4. 在resources下编写配置文件springmvc.xml (SpringMVC基础配置) 
 
-```xml
 ```
 <!--配置handlerMapping，将url请求映射到Handler-->
     <bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -73,21 +73,25 @@ public class MyHandler implements Controller {
             </props>
         </property>
     </bean>
-    <bean id="testHandler" class="com.njupt.handler.MyHandler"/>``````
+    <bean id="testHandler" class="com.njupt.handler.MyHandler"/>
+ ```
+ ```
 <!--配置视图解析器-->
-<!--modelAndView.setViewName("show");   在show的前面加 /  ，在后面加 .jsp-->
+<!--modelAndView.setViewName("show");   
+<!--在show的前面加 /  ，在后面加 .jsp-->-->
 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/"/>
     <property name="suffix" value=".jsp"/>
-</bean>``````
+</bean>
+```
+
 > 当访问 test时 会 出发testHandler指向的 MyHandler ,然后返回  modleAndView 通过视图解析器，转向jsp页面
 
 ** 基于注解的方式 **
 
 1. springMVC 基础配置
 1. Controller，HandlerMapping 通过注解进行映射
-> 在类上方注解 @controller , 在方法上方注解RequestMapping \("/ 虚拟路径"\) ， 注解方式不要求继承Controller
-```java
+> 在类上方注解 @controller , 在方法上方注解RequestMapping("/ 虚拟路径") ， 注解方式不要求继承Controller
 ```
 @Controller
 public class annotationHandler {
@@ -98,7 +102,9 @@ public class annotationHandler {
         modelAndView.addObject("name", "李四");
         modelAndView.setViewName("show2");
         return modelAndView;
-    }``````
+    }
+```
+```
 /**
  * Model传值，String进行视图解析
  */
@@ -108,7 +114,9 @@ public String ModelTest(Model model) {
     model.addAttribute("name", "jerry");
     //设置逻辑视图
     return "show";
-}``````
+}
+```
+```
 /**
  * Map传值，String进行视图解析
  */
@@ -118,24 +126,26 @@ public String MapTest(Map map) {
     map.put("name", "cat");
     //设置路基视图
     return "show";
-}``````1. XML配置ViewResolver组件映射
-
+}
 ```
+1. XML配置ViewResolver组件映射
+
+
 ```
 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/"/>
     <property name="suffix" value=".jsp"/>
-</bean>``````
-4\. 用spring将Handler自动扫描到IOC容器中
-
-```xml
+</bean>
 ```
-<context:component-scan base-package="com.njupt.handler"></context:component-scan>``````
+4. 用spring将Handler自动扫描到IOC容器中
+
+`
+<context:component-scan base-package="com.njupt.handler"></context:component-scan
+`
 ___xml方式和注解方式（好像）不能混用___
 
 **编码过滤**
 
-```xml
 ```
 <filter>
   <filter-name>encodingFilter</filter-name>
@@ -153,21 +163,25 @@ ___xml方式和注解方式（好像）不能混用___
 <filter-mapping>
   <filter-name>encodingFilter</filter-name>
   <url-pattern>/*</url-pattern>
-</filter-mapping>``````
+</filter-mapping>
+```
 
 
 表单提交的action = RequestMapping
 
-```java
-```xml
-action="addGoods" method="post"``````java
+```
+action="addGoods" method="post"
+```
+```
+java
 @RequestMapping("/addGoods")
 public ModelAndView add(Goods goods) {
     ModelAndView modelAndView = new ModelAndView();
     modelAndView.addObject("goods", goods);
     modelAndView.setViewName("cart");
     return modelAndView;
-}``````
+}
+```
 
 
 
