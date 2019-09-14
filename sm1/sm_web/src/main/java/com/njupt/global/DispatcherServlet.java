@@ -26,6 +26,7 @@ public class DispatcherServlet extends GenericServlet {
     public void init() throws ServletException {
         super.init();
         //放在init里只会执行一次
+        //读取spring配置文件
         applicationContext =new  ClassPathXmlApplicationContext("spring.xml");
     }
 

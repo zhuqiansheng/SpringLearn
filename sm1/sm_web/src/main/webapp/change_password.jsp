@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=8" >
-    <title>编辑部门</title>
+    <title>修改密码</title>
     <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="../css/common.css"/>
     <link rel="stylesheet" type="text/css" href="../css/thems.css">
@@ -28,25 +28,27 @@
     <div class="right_m">
         <div class="hy_list">
             <div class="box_t">
-                <span class="name">编辑部门</span>
+                <span class="name">修改密码</span>
             </div>
             <div class="space_hx">&nbsp;</div>
-            <form action="edit.do" method="post" name="addForm">
-                <input  name="id" type="hidden" value="${OBJ.id}"/>
+            <form action="changePassword.do" method="post" name="addForm">
                 <div class="xjhy">
                     <!--高级配置-->
                     <ul class="hypz gjpz clearfix">
                         <li class="clearfix">
-                            <span class="title">名称：</span>
+                            <span class="title">账户名：</span>
+                            <div class="li_r">${USER.account}</div>
+                        </li>
+                        <li class="clearfix">
+                            <span class="title">原始密码：</span>
                             <div class="li_r">
-                                <input class="chang" name="name" type="text" value="${OBJ.name}"/>
-                                <i>*</i>
+                                <input class="chang" name="password" type="password"/>
                             </div>
                         </li>
                         <li class="clearfix">
-                            <span class="title">地址：</span>
+                            <span class="title">新密码：</span>
                             <div class="li_r">
-                                <input class="chang" name="address" type="text" value="${OBJ.address}"/>
+                                <input class="chang" name="password1" type="password"/>
                             </div>
                         </li>
                         <li class="tj_btn">

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--配置handlerMapping，将url请求映射到Handler-->
+    <!--<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
+        <!--&lt;!&ndash;配置mapping&ndash;&gt;-->
+        <!--<property name="mappings">-->
+            <!--<props>-->
+                <!--<prop key="/test">testHandler</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean id="testHandler" class="com.njupt.handler.MyHandler"/>-->
+
+    <!--配置视图解析器-->
+    <!--modelAndView.setViewName("show");   在show的前面加 /  ，在后面加 .jsp-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--开启扫描-->
+    <context:component-scan base-package="com.njupt.handler"></context:component-scan>
+</beans>

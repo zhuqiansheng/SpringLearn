@@ -71,6 +71,12 @@ public class DepartmentController {
      * 从 list 页面跳转到 edit 页面
      */
     public void toEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //获取传送过来的 id值
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        //根据id 找到对应的 Department
+        Department department = (Department) departmentService.get(id);
+        // 将 Department 放到request并传送到department_edit.jsp
+        request.setAttribute("OBJ", department);
         request.getRequestDispatcher("../department_edit.jsp").forward(request, response);
     }
 

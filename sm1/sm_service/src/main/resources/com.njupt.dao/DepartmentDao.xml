@@ -4,9 +4,9 @@
 <mapper namespace="com.njupt.dao.DepartmentDao">
     <resultMap id="resultMap" type="Department">
         <!--主键用id属性，其他用result，property对应实体类，column对应数据率列名-->
-        <id property="id" column="id"></id>
-        <result property="name" column="name"></result>
-        <result property="address" column="address"></result>
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="address" column="address"/>
     </resultMap>
 
     <insert id="insert" parameterType="Department" useGeneratedKeys="true">
