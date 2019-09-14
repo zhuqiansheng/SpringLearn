@@ -1,6 +1,6 @@
 ## SpringMVC
 
-** 核心组件 **
+**核心组件**
 
 1. DispatcherServlet  :前置控制器，统一调度其他组件的执行
 1. Handler :处理器 , 完成具体业务逻辑
@@ -11,7 +11,7 @@
 1. ModelAndView : 装载模型数据和视图信息，返回给Servlet
 1. ViewResolver ：视图解析器
 
-** 实现流程 **
+**实现流程**
 
 1. 客户端请求被DispatcherServlet接收
 1. DispatcherServlet将请求映射到Handler
@@ -27,7 +27,7 @@
 ![](README\Image.png)
 >  开发者只需手动编写Handler，View。
 
-** 步骤** 
+**步骤** 
 
 1. maven导入spring-webmvc
 
@@ -87,7 +87,7 @@ public class MyHandler implements Controller {
 
 > 当访问 test时 会 出发testHandler指向的 MyHandler ,然后返回  modleAndView 通过视图解析器，转向jsp页面
 
-** 基于注解的方式 **
+**基于注解的方式**
 
 1. springMVC 基础配置
 1. Controller，HandlerMapping 通过注解进行映射
@@ -142,6 +142,7 @@ public String MapTest(Map map) {
 `
 <context:component-scan base-package="com.njupt.handler"></context:component-scan
 `
+
 ___xml方式和注解方式（好像）不能混用___
 
 **编码过滤**
