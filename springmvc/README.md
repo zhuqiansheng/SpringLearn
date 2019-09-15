@@ -352,6 +352,15 @@ HandlerAdapter-->HttpMessageConverter--(DataBind)-->Handler
     }
 ```
 6. JSON
+需要导入包 `jackson-databind`
+在springmvc.xml中配置消息转换器
+```
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+```
 ```
     /**
      * 修改jsp传过来的对象的price数据
