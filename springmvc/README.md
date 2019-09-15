@@ -184,7 +184,205 @@ public ModelAndView add(Goods goods) {
 }
 ```
 
+## RESTful风格
+1. RESTful 不是一套标准，只是一种开发方式，架构思想
+2. 它时url更加简洁，有利于不同系统之间的资源共享
+
+RESTful就是HTTP协议的四种形式的基本操作
+1. GET 获取资源
+2. POST 新建资源
+3. PUT 修改资源
+4. DELETE 删除资源
+
+先 隐藏 Http请求的方法 (post,get,delete,put)
+```
+  <filter>
+    <filter-name>hiddenHttpMethodFilter</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>hiddenHttpMethodFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+```
+
+对于一个请求，`action=${pageContext.request.contextPath}/add method=post`
+
+在Controller中 用注解方式配置一个Mapping接收请求 `PostMapping(value ="add")`
+
+[CourseController](src/main/java/com/njupt/Controller/CourseController.java)
+
+get请求 : `GetMapping`
+put请求 : 在method里写post,在提交上方添加隐藏域,将post请求转换成put请求
+```
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-3">
+                <input type="hidden" name="_method" value="PUT"/>
+                <button type="submit" class="btn btn-default">提交</button>
+            </div>
+        </div>
+```
+delete请求:在method里写post，在提交上方添加隐藏域,将post请求转换成delete请求
+```
+ <form action="${pageContext.request.contextPath}/delete/${course.id}" method="post">
+                                <button class="btn btn-danger btn-sm delete_btn" type="submit">
+                                    <input type="hidden" name="_method" value="DELETE"/>
+                                    <span class="glyphicon glyphicon-trash">删除</span>
+                                </button>
+                            </form>
+```
+
+## SpringMVC数据绑定
+将HTTP请求中中的参数绑定到Handler业务方法的形参上
+
+HandlerAdapter-->HttpMessageConverter--(DataBind)-->Handler
+
+> 传统方式中页面传过来的数据都要先通过getParameter()方法获取，然后转换成需要的类型（如id需要将它转换成int类型）
+> 如果需要封装成对象，也需要手动封装，SpringMVC数据绑定可以自动实现封装，只要name=属性名
+
+**常用的数据绑定类型**
+
+[DataBindController](src/main/java/com/njupt/Controller/DataBindController.java)
+
+[jsp页面](src/main/webapp)
+1. 基本数据类型
+```
+    /**
+     * 基本类型
+     * http://localhost:8080/baseType?id=2
+     * 将url里的参数 id 传给形参里的id
+     */
+    @RequestMapping(value = "/baseType")
+    //ResponseBody的意思是直接返回到客户端，不跳转到其他页面
+    @ResponseBody
+    public String baseType(@RequestParam(value = "id") int id) {
+        return "id:" + id;
+    }
+```
+2. 包装类
+```
+    /**
+     * http://localhost:8080/packageType?text=zzzzz
+     * 包装类型
+     */
+    @RequestMapping(value= "/packageType")
+    @ResponseBody
+    public String packageType(@RequestParam(value = "text") String text) {
+        return "text:" + text;
+    }
+```
+3. 数组
+```
+/**
+     *http://localhost:8080/arrayType?name=zhangsan&name=lisi
+     */
+    @RequestMapping(value="arrayType")
+    @ResponseBody
+    public String arrayType(String[] name) {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (String item : name) {
+            stringBuffer.append(item).append(" ,");
+        }
+        return stringBuffer.toString();
+    }
+```
+4. 对象
+```
+/**
+     * addCourse2.jsp  action="pojoType" method="post"
+     * 封装成一个Course对象
+     */
+    @RequestMapping(value ="/pojoType")
+    public ModelAndView pojoType(Course course) {
+        courseDao.add(course);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index2");
+        modelAndView.addObject("courses", courseDao.selectAll());
+        return modelAndView;
+    }
+```
+5. 集合（List，Set，Map）
+```
+/**
+     * 测试绑定List， List型需要一个包装类
+     * 封装成CourseList对象，有一个List类型的属性
+     * 一次性添加一个List的Course
+     */
+    @RequestMapping(value = "listType")
+    public ModelAndView listType(CourseList courseList) {
+        ModelAndView modelAndView = new ModelAndView();
+        for (Course course : courseList.getCourses()) {
+            courseDao.add(course);
+        }
+        modelAndView.setViewName("index2");
+        modelAndView.addObject("courses", courseDao.selectAll());
+        return modelAndView;
+    }
+```
+```
+@RequestMapping(value = "mapType")
+    public ModelAndView mapType(CourseMap courseMap) {
+        ModelAndView modelAndView = new ModelAndView();
+        //取出courseMap里的每个Course放到courseDao
+        //遍历Map需要用的它的keySet,这里的Key是String类型,(通过addMap.jsp可以看出这里的keySet是['one','two'])
+        for (String key : courseMap.getCourses().keySet()) {
+            Course course = courseMap.getCourses().get(key);
+            courseDao.add(course);
+        }
+        modelAndView.setViewName("index2");
+        modelAndView.addObject("courses", courseDao.selectAll());
+        return modelAndView;
+    }
+```
+```
+/**
+     * name="courses[0].id"
+     * CourseSet的构造方法中必须先添加两个元素
+     */
+    @RequestMapping(value = "setType")
+    public ModelAndView setType(CourseSet courseSet) {
+        ModelAndView modelAndView = new ModelAndView();
+        for (Course course : courseSet.getCourses()) {
+            courseDao.add(course);
+        }
+        modelAndView.setViewName("index2");
+        modelAndView.addObject("courses", courseDao.selectAll());
+        return modelAndView;
+
+    }
+```
+6. JSON
+```
+    /**
+     * 修改jsp传过来的对象的price数据
+     * 需要配置消息转换器
+     */
+    @RequestMapping(value = "/jsonType")
+    @ResponseBody
+    public  Course jsonType(@RequestBody Course course){
+        course.setPrice(course.getPrice()+100);
+        return course;
+    }
+
+```
+```
 
 
-
-
+    $(function(){
+        var course = {
+            "id":"8",
+            "name":"SSM框架整合",
+            "price":"200"
+        };
+        $.ajax({
+            url:"jsonType",
+            data:JSON.stringify(course),        //解析json数据 封装成对象
+            type:"post",
+            contentType:"application/json;charse=UTF-8",
+            dataType:"json",
+            success:function(data){
+                alert(data.name+"---"+data.price);
+            }
+        })
+    })
+```
