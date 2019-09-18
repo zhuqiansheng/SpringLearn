@@ -30,6 +30,7 @@
   </servlet-mapping>
 
   <!--前置控制器-->
+  <!--三种配置方式-->
   <servlet>
     <servlet-name>springmvc</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

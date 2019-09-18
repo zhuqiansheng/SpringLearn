@@ -15,11 +15,11 @@
 
 1. 客户端请求被DispatcherServlet接收
 1. DispatcherServlet将请求映射到Handler
-1. .生成Handler以及HandlerInterceptor
-1. .返回HandlerExecutionChain（Handler\+HandlerInterceptor）
-1. .DispatcherServlet通过HandlerAdapter执行Handle
+1. 生成Handler以及HandlerInterceptor
+1. 返回HandlerExecutionChain（Handler+HandlerInterceptor）
+1. DispatcherServlet通过HandlerAdapter执行Handle
 1. 返回一个ModelAndView
-1. .DispatcherServlet通过ViewResolver进行解析。
+1. DispatcherServlet通过ViewResolver进行解析。
 1. 返回填充了模型数据的View，响应给客户端。
 
 
@@ -31,9 +31,22 @@
 
 1. maven导入spring-webmvc
 
-2. web.xml中配置DispatcherServlet 
+2. web.xml中配置DispatcherServlet  (这里采用的第三种)
 
+> DispatcherServlet有三种配置方式
 
+第一种: `[servlet-name]-servlet.xml ` ,比如springmvc-servlet.xml 
+
+要求 `<servlet-name>xxx</servlet-name>`, 配置文件必须放在在WEB-INF目录下，且配置文件名必须为xxx-servlet.xml
+
+第二种：改变命名空间：要求在WEB-INF下有一个名为xxx.xml的配置文件
+```
+   <init-param>
+    <param-name>namespace</param-name>
+    <param-value>xxx</param-value>
+  </init-param>
+```
+第三种 contextConfigLocation :可以放在resources目录下，名字与`contextConfigLocation`的value一样
 ```
 <servlet>
   <servlet-name>springmvc</servlet-name>
@@ -85,7 +98,9 @@ public class MyHandler implements Controller {
 </bean>
 ```
 
-> 当访问 test时 会 出发testHandler指向的 MyHandler ,然后返回  modleAndView 通过视图解析器，转向jsp页面
+> 当访问 test时 会触发testHandler指向的 MyHandler ,然后返回  modleAndView 通过视图解析器，转向jsp页面
+
+> 如果页面是放在webapp下的其他目录，比如WEB-INF/pages下 ，则prefix的value=/WEB-INF/pages/
 
 **基于注解的方式**
 
@@ -168,7 +183,7 @@ ___xml方式和注解方式（好像）不能混用___
 ```
 
 
-表单提交的action = RequestMapping
+**表单提交的action = RequestMapping**
 
 ```
 action="addGoods" method="post"
@@ -213,6 +228,7 @@ RESTful就是HTTP协议的四种形式的基本操作
 [CourseController](src/main/java/com/njupt/Controller/CourseController.java)
 
 get请求 : `GetMapping`
+
 put请求 : 在method里写post,在提交上方添加隐藏域,将post请求转换成put请求
 ```
         <div class="form-group">
@@ -394,4 +410,45 @@ HandlerAdapter-->HttpMessageConverter--(DataBind)-->Handler
             }
         })
     })
+```
+
+### 拦截器和过滤器
+1. 拦截器是使用JDK动态代理实现的，拦截的是对应调用方法的拦截
+2. 过滤器是使用Filter实现的，拦截的是request对象
+
+**登录场景**
+
+> 当试图通过url直接进入需要登录的页面时，要用拦截器进行拦截，判断有没有user的session，没有则重定向到登录页面，
+但是如果在进入每个页面前都加上这样的代码，会很麻烦，可以自定义拦截器来实现特定的功能
+
+自定义拦截器必须实现HandlerInterceptor接口 。
+它有三个方法
+1. preHandler : 在业务处理器处理请求之前被调用，如果决定该拦截器对请求进行拦截处理后还要调用其他的拦截器，或者是业务处理器去进行处理，则返回true，否则返回false
+2. postHandler:在业务处理器处理完请求后，但是DispatcherServlet向客户端返回响应前被调用，在该方法中对用户请求reques进行处理
+3. afterCompletion ：在DispatcherServlet完全处理完请求后被调用，可以在该方法中进行一些资源清理作用
+
+拦截器注册
+```
+<mvc:interceptors>
+    <mvc:inteceptor>
+        <mvc:mapping path="/user/xxx" />​​     //访问路由的url，当访问这些url就对触发相应的拦截器
+        <mvc:mapping path="" />​​
+        <mvc:mapping path="" />​​
+        <bean class="   "/>          //拦截器的包
+    </mvc:inteceptor>
+    
+    <mvc:inteceptor>
+    
+    ....
+    
+    </mvc:inteceptor>
+
+</mvc:interceptors>
+```
+- 通配符：如果要拦截user下所有页面，`path="/user/*"`，不能拦截子目录，要想能够拦截子目录，`path="/user/**"`
+- 携带参数 也算是子目录
+- 有多个拦截器时，按顺序进行拦截
+如果被通配符包含的页面中包含不需要拦截的，用`exclude-mapping`进行排除
+```
+<mvc:exclude-mapping path="/user/xxx">             //只在有通配符时排除才有意义
 ```

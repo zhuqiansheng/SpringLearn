@@ -18,6 +18,7 @@
 
     <!--配置视图解析器-->
     <!--modelAndView.setViewName("show");   在show的前面加 /  ，在后面加 .jsp-->
+    <!--这里页面都放在webapp下面，就直接用/表示，如果放在webapp/WEB-INF/pages下，prefix的value就="/WEB-INF/pages/"-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/"/>
         <property name="suffix" value=".jsp"/>
@@ -32,6 +33,15 @@
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/*"/>
+            <mvc:exclude-mapping path="/user/login" />
+            <bean class="com.njupt.Interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
 
