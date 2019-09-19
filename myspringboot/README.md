@@ -5,12 +5,12 @@
 
 spring应用开发流程
 
-![](README\Image.png)
+![](README/Image.png)
 springBoot开发流程
 
 
 
-![](README\Image1.png)
+![](README/Image1.png)
 
 **特性**
 
@@ -25,7 +25,7 @@ springBoot开发流程
 
 
 
-![](README\Image2.png)
+![](README/Image2.png)
 
 
 
@@ -91,9 +91,9 @@ public class MyspringbootApplication {
 
 **简单版**
 
-idea创建项目时选择 `Spring Initializr` 
+第一种：使用官方地址生成项目 :`https://start.spring.io`   可以在这里面有生成项目然后下载到本地。
 
-会自动帮我们生成目录和完成基础配置
+第二种：idea创建项目时选择 `Spring Initializr` ，会自动帮我们生成目录和完成基础配置
 
 
 
@@ -107,7 +107,7 @@ idea创建项目时选择 `Spring Initializr`
 
 
 
-![](README\Image3.png)
+![](README/Image3.png)
 应用初始化包括：tomcat，初始化日志，初始化数据源，初始化数据库连接源 等
 
 
@@ -118,7 +118,7 @@ idea创建项目时选择 `Spring Initializr`
 
 
 
-![](README\Image4.png)
+![](README/Image4.png)
 * **server.servlet.context-path**当tomcat中有多个不同的应用，就需要设置上下文，` server.servlet.contex-path=/上下文名称(项目名)`
 
         这样在访问时要加上context-path ：localhost/xxx/
@@ -138,7 +138,7 @@ idea创建项目时选择 `Spring Initializr`
 
 _YAML语法_
 
-* key:\(空格\)value
+* key:(空格)value
 * 使用空格代表层级关系，以":"结束
 
 
@@ -194,7 +194,7 @@ spring:
 
 
 
-![](README\Image5.png)
+![](README/Image5.png)
 
 
 2. cmd 下  `java -jar xxx.jar `   命令启动Spring Boot应用  (jar文件是打包好的SpringBoot应用\)

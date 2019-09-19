@@ -24,7 +24,7 @@
 
 
 
-![](README\Image.png)
+![](README/Image.png)
 >  开发者只需手动编写Handler，View。
 
 **步骤** 
